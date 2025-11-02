@@ -23,7 +23,7 @@ const App: React.FC = () => {
   }, []);
   
   useEffect(() => {
-    // The gapi script is loaded asynchronously. We need to check if it's available on the window object.
+    // The gapi script is loaded asynchronously. We need to repeatedly check if it's available on the window object before using it.
     const checkGapiReady = () => {
       if (window.gapi && window.gapi.load) {
         initGoogleClient((authInstance) => {
@@ -55,7 +55,7 @@ const App: React.FC = () => {
         <div className="bg-white p-8 rounded-lg shadow-xl text-center max-w-md">
           <h1 className="text-2xl font-bold text-red-500 mb-4">Initialization Error</h1>
           <p className="text-slate-600">{error}</p>
-          <p className="text-xs text-slate-500 mt-4">Please ensure you have enabled the required APIs in your Google Cloud project and configured your credentials correctly in the build environment.</p>
+          <p className="text-xs text-slate-500 mt-4">Please ensure you have enabled the required APIs in your Google Cloud project and configured your credentials (VITE_GOOGLE_CLIENT_ID, etc.) correctly as environment variables in your deployment platform.</p>
         </div>
       </div>
     );
@@ -76,7 +76,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen text-slate-800 bg-background">
+    <div className="min-h-screen text-slate-800 bg-background font-sans">
       {user ? (
         <Dashboard user={user} onSignOut={handleSignOut} />
       ) : (
