@@ -9,7 +9,8 @@ const getAiClient = (() => {
     if (!ai) {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) {
-        throw new Error("Gemini API Key (VITE_GEMINI_API_KEY) is not configured as an environment variable.");
+        // This will be caught by the calling function's try/catch block
+        throw new Error("Gemini API Key is not configured. Please set VITE_GEMINI_API_KEY as an environment variable in your deployment platform.");
       }
       ai = new GoogleGenAI({ apiKey });
     }
